@@ -1,4 +1,4 @@
-# bilibili
+# bilibiliComic
 
 ## Project setup
 ```
