@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>搜索</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="tab标注" transform="translate(-245.000000, -334.000000)">
+            <g id="principle-flatten_nav备份" transform="translate(223.000000, 278.000000)">
+                <g id="编组-7" transform="translate(0.000000, 44.000000)">
+                    <g id="搜索" transform="translate(12.000000, 6.000000)">
+                        <g transform="translate(10.000000, 6.000000)">
+                            <rect id="矩形" fill="#00FFEB" opacity="0" x="0" y="0" width="15" height="15"></rect>
+                            <circle id="椭圆形" stroke="#FFFFFF" stroke-width="1.2" cx="7" cy="7" r="4"></circle>
+                            <line x1="10" y1="10" x2="12" y2="12" id="路径-3" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round"></line>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
