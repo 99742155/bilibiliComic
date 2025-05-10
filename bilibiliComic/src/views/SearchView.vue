@@ -117,11 +117,11 @@ export default {
     Searchvalue: function () {
       console.log(this.Searchvalue);
       if (this.Searchvalue != null && this.Searchvalue != "") {
-        console.log("搜索关键词中");
+        //console.log("搜索关键词中");
         /* 搜索关键词方法 */
         getSearchSug({ term: this.Searchvalue }).then((data) => {
           this.getSearchSugResult = data.data;
-          console.log(this.getSearchSugResult);
+          //console.log(this.getSearchSugResult);
         });
       }
     },
@@ -143,20 +143,20 @@ export default {
     getSearchRecommendFun() {
       getSearchRecommend({ num: 6 + 1 }).then((data) => {
         this.searchRecommend = data.data;
-        console.log("热门搜索", data);
+        // console.log("热门搜索", data);
       });
     },
     /* 热门搜索轮播图 */
     getSearchBannerFun() {
       getSearchBanner().then((data) => {
         this.searchBanner = data;
-        console.log("搜索轮播图", this.searchBanner);
+        // console.log("搜索轮播图", this.searchBanner);
       });
     },
     /* 选择该条搜索 */
     choose(item) {
       let a = item.replace(/<[^>]+>/g, "");
-      console.log(a);
+      // console.log(a);
       this.$router.push({
         name: "aftersearch",
         query: { aftersearch: a },

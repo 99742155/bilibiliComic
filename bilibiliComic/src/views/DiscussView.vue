@@ -267,7 +267,7 @@ export default {
       let oid = this.$route.query.comicId;
       getReplyMain({ oid: oid, mode: 3, ps: 20 }).then((data) => {
         this.replayMain = data.data;
-        console.log(this.replayMain);
+        //console.log("漫画讨论方法==>",this.replayMain);
       });
     },
     /* 下拉加载方法 */
@@ -279,7 +279,7 @@ export default {
         (data) => {
           this.replayMain = data.data;
           this.replayMains.push(...data.data.replies);
-          console.log(this.replayMain);
+          //console.log(this.replayMain);
           this.loading = false;
         }
       );
@@ -330,7 +330,7 @@ export default {
         type: "comments",
         action: this.AllAction,
       };
-      console.log("离开页面开始发送请求", all);
+      //console.log("离开页面开始发送请求", all);
     },
   },
   //生命周期 - 创建完成(可以访问当前this实例)

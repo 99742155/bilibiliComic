@@ -130,13 +130,13 @@ export default {
     async getListRankFun() {
       let data = await getListRank();
       this.listRank = data.data.list;
-      console.log("排行榜:", this.listRank);
+      //console.log("排行榜:", this.listRank);
       for (let i = 0; i < this.listRank.length; i++) {
         await getRankInfo({ id: this.listRank[i].id }).then((info) => {
           this.listInfo.push(info.data);
         });
       }
-      console.log(this.listInfo);
+      //console.log(this.listInfo);
     },
 
     /* 选择该漫画方法 */

@@ -151,9 +151,9 @@ export default {
     },
     /* 下拉加载方法 */
     onLoad() {
-      console.log("触底了");
+      // console.log("触底了");
       this.pageNum += 1;
-      console.log("当前页数", this.pageNum);
+      // console.log("当前页数", this.pageNum);
       // 异步更新数据
       // setTimeout 仅做示例，真实场景中一般为 ajax 请求
       setTimeout(() => {
@@ -165,26 +165,26 @@ export default {
             this.finished = true;
             return;
           }
-          console.log(
-            "加载后获取的第" + this.pageNum + "页数据",
-            data.data.list,
-            "数组长度为",
-            data.data.list.length
-          );
+          // console.log(
+          //   "加载后获取的第" + this.pageNum + "页数据",
+          //   data.data.list,
+          //   "数组长度为",
+          //   data.data.list.length
+          // );
           if (data.data.list.length != 0) {
             for (let i = 0; i < data.data.list.length - 1; i++) {
               this.searchResult.push(data.data.list[i]);
             }
           }
-          console.log(
-            "推入加载后数据",
-            this.searchResult,
-            "当前分页",
-            this.pageNum
-          );
+          // console.log(
+          //   "推入加载后数据",
+          //   this.searchResult,
+          //   "当前分页",
+          //   this.pageNum
+          // );
           // 加载状态结束
           this.loading = false;
-          console.log("加载完毕");
+          // console.log("加载完毕");
         });
         // 数据全部加载完成
       }, 1);

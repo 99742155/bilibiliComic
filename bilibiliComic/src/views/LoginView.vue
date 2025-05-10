@@ -11,7 +11,7 @@
           />
         </div>
         <div class="tabText">密码登录</div>
-        <div class="changeLogin">注册</div>
+        <div class="changeLogin" @click="unFinish()">注册</div>
       </div>
       <!-- 登录主体 -->
       <div class="loginBody">
@@ -78,7 +78,7 @@
             >
               登录
             </div>
-            <div class="register">注册账号</div>
+            <div class="register" @click="unFinish()">注册账号</div>
           </div>
         </div>
       </div>
@@ -102,10 +102,11 @@ export default {
       hide: false,
       checked: false,
       loginOk: false,
+      /* 注：由于并没有找到bilibili的登录接口，以下为伪登录后使用用户uid查询 */
       userAccount: [
         {
-          username: 15013841819,
-          password: 28271398,
+          username: 11451419198,
+          password: 123456,
         },
       ],
     };
@@ -157,10 +158,10 @@ export default {
     loginOkFun() {
       if (this.username != "" && this.password != "") {
         this.loginOk = true;
-        console.log(this.loginOk);
+        //console.log(this.loginOk);
       } else {
         this.loginOk = false;
-        console.log(this.loginOk);
+        //console.log(this.loginOk);
       }
     },
     /* 登录方法 */
@@ -178,7 +179,7 @@ export default {
               loginType: 0,
               Action: "登录成功~",
             };
-            console.log(Login);
+            //console.log(Login);
             this.$router.push({ name: "my" });
           } else {
             Toast("账号或密码错误,请重试");
@@ -190,6 +191,10 @@ export default {
       } else {
         return;
       }
+    },
+    /* 未完成方法 */
+    unFinish() {
+      Toast("该功能未开放，请以后再尝试吧~");
     },
   },
   //生命周期 - 创建完成(可以访问当前this实例)

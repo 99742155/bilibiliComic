@@ -504,16 +504,18 @@ export default {
     /* 获取漫画详情方法 */
     getComicDetailFun() {
       this.comicId = this.$route.query.comicId;
-      console.log("漫画Id", this.comicId);
+      // console.log("漫画Id", this.comicId);
       getComicDetail({ comicId: this.comicId }).then((data) => {
         this.comicDetails = data.data;
         this.comicList = data.data.ep_list.reverse();
-        console.log("漫画信息", this.comicDetails);
+        // console.log("漫画信息", this.comicDetails);
       });
     },
     /* 返回按钮方法 */
     goback() {
-      this.$router.go(-1);
+      this.$router.push({
+        name: "home",
+      });
     },
     /* 获取精选漫画点评方法 */
     getReviewDetailByComicIDFun() {
@@ -526,7 +528,7 @@ export default {
         this.scrollValue = this.comicComment.score / 2;
         this.beforeScrollValue = this.comicComment.score;
         this.shortReviews = this.comicComment.short_reviews;
-        console.log("漫画精选点评", this.comicComment);
+        // console.log("漫画精选点评", this.comicComment);
       });
     },
     /* 获取漫画评论列表方法 */
@@ -536,7 +538,7 @@ export default {
         oid: this.comicId,
       }).then((data) => {
         this.replyMainNum = data.data.cursor.all_count;
-        console.log("漫画评论列表数量", this.replyMainNum);
+        // console.log("漫画评论列表数量", this.replyMainNum);
       });
     },
     /* 获取漫画周边方法 */
@@ -546,7 +548,7 @@ export default {
         comicId: this.comicId,
       }).then((data) => {
         this.shopItems = data.data.items;
-        console.log("周边商品", this.shopItems);
+        // console.log("周边商品", this.shopItems);
       });
     },
     /* 获取漫画推荐方法 */
@@ -556,7 +558,7 @@ export default {
         comicId: this.comicId,
       }).then((data) => {
         this.moreRecommend = data.data;
-        console.log("漫画推荐", this.moreRecommend);
+        // console.log("漫画推荐", this.moreRecommend);
       });
     },
     /* 跳转该章节方法 */
@@ -578,11 +580,11 @@ export default {
     async ToComicDetails(id) {
       let index = "";
       let ep_list = "";
-      console.log("当前选择漫画Id为", id);
+      // console.log("当前选择漫画Id为", id);
       await getComicDetail({ comicId: id }).then((data) => {
         index = 0;
         ep_list = data.data.ep_list.reverse();
-        console.log(index, ep_list);
+        // console.log(index, ep_list);
       });
       this.$router.push({
         name: "comicview",
@@ -657,6 +659,24 @@ export default {
     /* 显示列表模式 */
     closeAbbreviationModeFun() {
       this.showListMode = true;
+    },
+    /* 监听手机返回方法 */
+    watchPhoneGoBackFun() {
+      pushHistory();
+      window.addEventListener(
+        "popstate",
+        function () {
+          alert("监听到了浏览器的返回按钮事件");
+        },
+        false
+      );
+      function pushHistory() {
+        var state = {
+          title: "title",
+          url: "#",
+        };
+        window.history.pushState(state, "title", "#");
+      }
     },
   },
   filters: {

@@ -176,8 +176,8 @@ export default {
   //监控data中的数据变化
   watch: {
     allId: function (newV) {
-      console.log("加载漫画列表中...");
-      console.log("新数据", newV);
+      // console.log("加载漫画列表中...");
+      // console.log("新数据", newV);
       GetClassPage({
         styleId: newV.allClassifyId,
         areaId: newV.areaClassifyId,
@@ -186,7 +186,7 @@ export default {
         order: newV.ordersClassifyId,
       }).then((data) => {
         this.comicList = data.data;
-        console.log("选择后漫画列表", this.comicList);
+        // console.log("选择后漫画列表", this.comicList);
         this.finished = false;
       });
     },
@@ -201,84 +201,69 @@ export default {
     getAllLabelFun() {
       GetallLabel().then((data) => {
         this.allLabel = data.data;
-        console.log("全部分类数据", this.allLabel);
+        // console.log("全部分类数据", this.allLabel);
       });
     },
     /* 选择该分类方法 */
     chooseThisClassify(item) {
       this.allClassifyId = item.id;
-      console.log("当前style选择分类为", item.name, "id:", this.allClassifyId);
+      // console.log("当前style选择分类为", item.name, "id:", this.allClassifyId);
     },
     /* 选择全部分类中全部 */
     chooseAllClassifyall() {
       this.allClassifyId = -1;
-      console.log("当前style选择分类为全部", "id:", this.allClassifyId);
+      // console.log("当前style选择分类为全部", "id:", this.allClassifyId);
     },
     /* 选择该地区分类 */
     chooseThisAreaClassify(item) {
       this.areaClassifyId = item.id;
-      console.log("当前选择地区分类为", item.name, "id:", this.areaClassifyId);
+      // console.log("当前选择地区分类为", item.name, "id:", this.areaClassifyId);
     },
     /* 选择地区分类全部 */
     chooseAreaClassifyall() {
       this.areaClassifyId = -1;
-      console.log("当前选择地区分类为全部", "id:", this.areaClassifyId);
+      // console.log("当前选择地区分类为全部", "id:", this.areaClassifyId);
     },
     /* 选择该完结分类 */
     chooseThisstatusClassify(item) {
       this.isFinishClassifyId = item.id;
-      console.log(
-        "当前选择完结分类为",
-        item.name,
-        "id:",
-        this.isFinishClassifyId
-      );
+      // console.log(
+      //   "当前选择完结分类为",
+      //   item.name,
+      //   "id:",
+      //   this.isFinishClassifyId
+      // );
     },
     /* 选择完结分类全部 */
     chooseisFinishClassifyall() {
       this.isFinishClassifyId = -1;
-      console.log("当前选择完结分类为全部", "id:", this.isFinishClassifyId);
+      // console.log("当前选择完结分类为全部", "id:", this.isFinishClassifyId);
     },
     /* 选择该付费分类 */
     chooseThisneedPayClassify(item) {
       this.needPayClassifyId = item.id;
-      console.log(
-        "当前选择完结分类为",
-        item.name,
-        "id:",
-        this.needPayClassifyId
-      );
+      // console.log(
+      //   "当前选择完结分类为",
+      //   item.name,
+      //   "id:",
+      //   this.needPayClassifyId
+      // );
     },
     /* 选择付费分类全部 */
     chooseneedPayClassifyall() {
       this.needPayClassifyId = -1;
-      console.log("当前选择完结分类为全部", "id:", this.needPayClassifyId);
+      // console.log("当前选择完结分类为全部", "id:", this.needPayClassifyId);
     },
     /* 选择该人气分类 */
     chooseThisOrdersClassify(item) {
       this.ordersClassifyId = item.id;
-      console.log(
-        "当前选择人气分类为",
-        item.name,
-        "id:",
-        this.ordersClassifyId
-      );
+      // console.log(
+      //   "当前选择人气分类为",
+      //   item.name,
+      //   "id:",
+      //   this.ordersClassifyId
+      // );
     },
-    /* 获取漫画列表方法 */
-    /* getClassPageFun() {
-      console.log("加载漫画列表中...");
-      GetClassPage({
-        styleId: this.allClassifyId,
-        areaId: this.areaClassifyId,
-        isFinish: this.isFinishClassifyId,
-        isFree: this.needPayClassifyId,
-        order: this.ordersClassifyId,
-        pageNum: this.pageNum,
-      }).then((data) => {
-        this.comicList = data.data;
-        console.log("漫画列表", this.comicList);
-      });
-    }, */
     /* 跳转漫画详情页方法 */
     ToComicDetails(comicId) {
       this.$router.push({
@@ -291,7 +276,7 @@ export default {
     /* 下拉加载方法 */
     onLoad() {
       // 异步更新数据
-      console.log("触底了~");
+      // console.log("触底了~");
       this.pageNum += 1;
       GetClassPage({
         styleId: this.allClassifyId,
@@ -306,7 +291,7 @@ export default {
           return;
         }
         this.comicList.push(...data.data);
-        console.log("漫画列表", this.comicList, data.data);
+        // console.log("漫画列表", this.comicList, data.data);
         this.loading = false;
       });
     },

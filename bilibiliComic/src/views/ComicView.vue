@@ -1,66 +1,72 @@
 <!-- 漫画页 -->
+
 <template>
-  <div class="comic" v-if="theLastPath">
-    <div class="comicImg">
-      <!-- 上层遮罩层 -->
-      <van-popup
-        v-model="show"
-        position="top"
-        :style="{ height: '8%' }"
-        overlay-class="overlay"
-        v-if="ep_list"
-      >
-        <div class="left">
-          <div class="gobackButton" @click="goback">
-            <img
-              src="@/assets/images/reader/2.0x/reader_bookmark_back.png"
-              alt=""
-            />
-          </div>
-          {{ this.ep_list[this.epIdIndex].short_title }}话 &nbsp;{{
-            this.ep_list[this.epIdIndex].title
-          }}
-        </div>
-        <div class="right">
-          <div class="watchDetail" @click="goToDetail">查看详情</div>
-          <div class="rightIcon">
-            <div class="bookmark">
+  <keep-alive>
+    <div class="comic" v-if="theLastPath">
+      <div class="comicImg">
+        <!-- 上层遮罩层 -->
+        <van-popup
+          v-model="show"
+          position="top"
+          :style="{ height: '8%' }"
+          overlay-class="overlay"
+          v-if="ep_list"
+        >
+          <div class="left">
+            <div class="gobackButton" @click="goback">
               <img
-                src="@/assets/images/reader/2.0x/reader_book_mark.png"
+                src="@/assets/images/reader/2.0x/reader_bookmark_back.png"
                 alt=""
               />
             </div>
-            <div class="share">
-              <img src="@/assets/images/reader/2.0x/reader_share.png" alt="" />
+            {{ this.ep_list[this.epIdIndex].short_title }}话 &nbsp;{{
+              this.ep_list[this.epIdIndex].title
+            }}
+          </div>
+          <div class="right">
+            <div class="watchDetail" @click="goToDetail">查看详情</div>
+            <div class="rightIcon">
+              <div class="bookmark">
+                <img
+                  src="@/assets/images/reader/2.0x/reader_book_mark.png"
+                  alt=""
+                />
+              </div>
+              <div class="share">
+                <img
+                  src="@/assets/images/reader/2.0x/reader_share.png"
+                  alt=""
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </van-popup>
-      <!-- 漫画层 -->
-      <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-        <van-list v-model="loading" :finished="finished" @load="onLoad">
-          <!-- 漫画主体 -->
-          <div
-            class="comicImgItem"
-            v-for="(item, index) in theLastPath"
-            :key="index"
-            @click="showPopup"
-          >
-            <img :src="item" alt="" />
-          </div>
-          <!-- 需要付费 -->
-          <div class="needPay" v-show="finished" @click="showPopup">
-            <div class="imgPlaceholder">
-              <img
-                src="@/assets/images/placeholder/light/comic_placeholder_userzone_empty.png"
-                alt=""
-              />该章节需要付费，莫得看啦~
+        </van-popup>
+        <!-- 漫画层 -->
+        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+          <van-list v-model="loading" :finished="finished" @load="onLoad">
+            <!-- 漫画主体 -->
+            <div
+              class="comicImgItem"
+              v-for="(item, index) in theLastPath"
+              :key="index"
+              @click="showPopup"
+            >
+              <img :src="item" alt="" />
             </div>
-          </div>
-        </van-list>
-      </van-pull-refresh>
+            <!-- 需要付费 -->
+            <div class="needPay" v-show="finished" @click="showPopup">
+              <div class="imgPlaceholder">
+                <img
+                  src="@/assets/images/placeholder/light/comic_placeholder_userzone_empty.png"
+                  alt=""
+                />该章节需要付费，莫得看啦~
+              </div>
+            </div>
+          </van-list>
+        </van-pull-refresh>
+      </div>
     </div>
-  </div>
+  </keep-alive>
 </template>
 
 <script>
@@ -97,7 +103,7 @@ export default {
     async getImageIndexFun() {},
     /* 下拉加载 */
     async onLoad() {
-      console.log("加载下一章");
+      // console.log("加载下一章");
       /* 判断是否有漫画章节下标 */
       if (this.epIdIndex == null) {
         this.epIdIndex = this.$route.query.index;
@@ -105,43 +111,41 @@ export default {
       } else {
         this.epIdIndex += 1;
       }
-      console.log(
-        "当前章节下标",
-        this.epIdIndex,
-        "章节",
-        this.ep_list,
-        "章节Id",
-        this.ep_list[this.epIdIndex].id
-      );
+      // console.log(
+      //   "当前章节下标",
+      //   this.epIdIndex,
+      //   "章节",
+      //   this.ep_list,
+      //   "章节Id",
+      //   this.ep_list[this.epIdIndex].id
+      // );
+
       /* 调用获取漫画内容API（返回漫画的路径） */
       let data = await getImageIndex({ epId: this.ep_list[this.epIdIndex].id });
       console.log(data);
-      /* 如果code == 1 付费，0免 */
+      /* 如果code == 1 付费，0免费 */
       if (data.code == 1) {
         Toast("该章节需要付费，莫得看啦~");
-        console.log("该章节需要付费，莫得看啦~");
         this.finished = true;
         return;
       }
       this.comicImages = data.data.images;
-      /* console.log("host地址", this.host, "漫画图片地址", this.comicImages); */
+      // console.log("host地址", this.host, "漫画图片地址", this.comicImages);
+
       /* 获取漫画Token地址方法 */
       let newPath = "";
       for (let i = 0; i < this.comicImages.length; i++) {
-        /* newPath.push(this.host + this.comicImages[i].path); */
         newPath = this.host + this.comicImages[i].path + "@1000w.webp";
         /* console.log(newPath); */
         await imageToken({ urls: '["' + newPath + '"]' }).then((data) => {
           /* console.log(data); */
           this.theLastPath.push(
-            /* data.data[0].url + "?token=" + data.data[0].token */
             data.data[0].url + "?token=" + data.data[0].token
           );
         });
       }
       /* console.log("最终地址", this.theLastPath); */
       this.loading = false;
-      console.log("加载完成");
       // 数据全部加载完成
     },
     /* 显示遮罩层 */
@@ -167,8 +171,6 @@ export default {
           comicId: this.$route.query.comicId,
         },
       });
-
-      console.log("去往详情页");
     },
   },
   //生命周期 - 创建完成(可以访问当前this实例)

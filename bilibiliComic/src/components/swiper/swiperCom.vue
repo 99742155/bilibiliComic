@@ -13,8 +13,10 @@
       <!-- 轮播图 -->
       <div class="swiper-wrapper" v-if="banner">
         <div class="swiper-slide" v-for="(item, index) in banner" :key="index">
+          <div class="bannerImgDiv" @click="chooseThisComic(item.jump_value)">
+            <img class="bannerImg" :src="item.img" alt="" />
+          </div>
           <!-- <img class="bannerImg" src="../../assets/banner/2B14.png" alt="" /> -->
-          <img class="bannerImg" :src="item.img" alt="" />
         </div>
       </div>
       <!-- 如果需要分页器 -->
@@ -57,11 +59,21 @@ export default {
     getBannerFun() {
       getBanner().then((data) => {
         this.banner = data.data;
-        console.log("轮播图数据", this.banner);
+        // console.log("轮播图数据", this.banner);
       });
     },
     /* 选择该漫画方法 */
-    chooseThisComic() {}
+    chooseThisComic(comicId) {
+      let id = comicId.match(/\d+/g).join('');
+      // console.log("轮播图传入id==》", comicId);
+      // console.log("轮播图切割id==》", id);
+      this.$router.push({
+        name: "comicdetails",
+        query: {
+          comicId: id,
+        },
+      });
+    },
   },
   //生命周期 - 创建完成(可以访问当前this实例)
   created() {

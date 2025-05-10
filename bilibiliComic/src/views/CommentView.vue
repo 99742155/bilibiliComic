@@ -221,7 +221,7 @@ export default {
         type: 1,
       }).then((data) => {
         this.longlistReviews = data.data.reviews;
-        console.log(this.longlistReviews);
+        //console.log(this.longlistReviews);
       });
     },
     /* 喜欢方法 */
@@ -233,7 +233,6 @@ export default {
         likeTime: new Date().toLocaleString(),
       };
       Toast("点赞成功~");
-      console.log(liked);
     },
   },
   filters: {

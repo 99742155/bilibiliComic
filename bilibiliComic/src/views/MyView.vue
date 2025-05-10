@@ -106,7 +106,7 @@
           </div>
         </div>
       </div>
-      <div class="activity">
+      <div class="activity" @click="noFinfish">
         <div class="comicShop">
           <img src="@/assets/activity/1.png" alt="" />
           漫画商城
@@ -124,7 +124,7 @@
           我的已购
         </div>
       </div>
-      <div class="allSetting">
+      <div class="allSetting" @click="noFinfish">
         <img src="@/assets/allSetting.png" alt="" />
       </div>
       <div class="loginOut" @click="loginOut">退出登录</div>
@@ -161,7 +161,7 @@ export default {
       getBaseSpaceInfo({ uid: 86984521, pageNum: this.pageNum }).then(
         (data) => {
           this.userInfo = data.data;
-          console.log(this.userInfo);
+          //console.log(this.userInfo);
         }
       );
     },
@@ -183,7 +183,7 @@ export default {
             loginType: 1,
             Action: "退出成功~",
           };
-          console.log(unLogin);
+          //console.log(unLogin);
           this.$router.push({ name: "home" });
         })
         .catch(() => {

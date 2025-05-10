@@ -108,10 +108,11 @@ export default {
   //方法集合
   methods: {
     /* 获取用户书架（收藏）方法 */
+    /* 注：由于并没有找到bilibili的登录接口，以下使用的为本人uid查询 */
     getFavComicsFun() {
       getFavComics({ uid: 86984521, pageNum: this.pageNum }).then((data) => {
         this.FavComics = data.data.fav_comics;
-        console.log("用户书架（收藏）", this.FavComics);
+        // console.log("用户书架（收藏）", this.FavComics);
         for (let i = 0; i < this.FavComics.length; i++) {
           getComicDetail({ comicId: data.data.fav_comics[i].comic_id }).then(
             (data) => {
@@ -119,7 +120,7 @@ export default {
             }
           );
         }
-        console.log("漫画详情", this.comicDetail);
+        // console.log("漫画详情", this.comicDetail);
       });
     },
     /* 下拉加载 */
@@ -132,20 +133,20 @@ export default {
         getFavComics({ uid: 86984521, pageNum: this.pageNum }).then((data) => {
           if (data.data.fav_comics.length == 0) {
             this.finished = true;
-            console.log("加载完毕");
+            // console.log("加载完毕");
           }
           console.log(data, 123);
           for (let i = 0; i < data.data.fav_comics.length; i++) {
             this.FavComics.push(data.data.fav_comics[i]);
           }
-          console.log(
-            "下拉后用户书架（收藏）",
-            this.FavComics,
-            "当前页数",
-            this.pageNum
-          );
+          // console.log(
+          //   "下拉后用户书架（收藏）",
+          //   this.FavComics,
+          //   "当前页数",
+          //   this.pageNum
+          // );
           for (let i = 0; i < data.data.fav_comics.length; i++) {
-            console.log("漫画详情", data.data.fav_comics[i]);
+            // console.log("漫画详情", data.data.fav_comics[i]);
             /* 获取漫画详情列表 */
             getComicDetail({ comicId: data.data.fav_comics[i].comic_id }).then(
               (data) => {
@@ -153,12 +154,12 @@ export default {
               }
             );
           }
-          console.log("下拉后漫画详情", this.comicDetail);
+          // console.log("下拉后漫画详情", this.comicDetail);
+
           // 加载状态结束
           this.loading = false;
         });
       });
-
       // 数据全部加载完成
     },
     /* 跳转漫画详情页 */

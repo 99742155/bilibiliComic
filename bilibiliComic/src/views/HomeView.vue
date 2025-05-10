@@ -7,6 +7,7 @@
       <div v-if="!banner" class="loading">
         <img src="../assets/loading.gif" alt="" />
       </div>
+      <!-- <loading v-if="!banner"/> -->
       <div class="top" v-if="banner">
         <div class="topBackground">
           <!-- 顶部搜索框 -->
@@ -47,23 +48,6 @@
           </transition>
           <!-- 分类 -->
           <div class="classify" v-if="classPageAllTabs.data">
-            <!-- 分类栏 -->
-            <!-- <van-sticky @change="touchTop()">
-              <van-tabs
-                v-model="active"
-                :background="flag ? 'white' : 'transparent'"
-                :title-inactive-color="flag ? 'rgb(122,124,138)' : '#DCDCDC'"
-                :title-active-color="flag ? 'black' : '#ffffff'"
-                line-width="0"
-              >
-                <van-tab
-                  v-for="(item, index) in classPageAllTabs.data.home_type"
-                  :key="index"
-                  :title="item.name"
-                  @click="getTabDetailFun()"
-                ></van-tab>
-              </van-tabs>
-            </van-sticky> -->
             <!-- 推荐视图 -->
             <div class="recommend" v-show="active == 1">
               <!-- 背景颜色 -->
@@ -146,21 +130,6 @@
                         >
                           {{ item.comic_info.main_style_name }}
                         </div>
-                        <!-- 右更多 -->
-                        <div class="comicCondition_right">
-                          <van-cell @click="show = true" style="padding: 0">
-                            <img
-                              src="../assets/images/comment/ic_more_gray_v2.png"
-                              alt=""
-                            />
-                          </van-cell>
-                          <van-action-sheet
-                            v-model="show"
-                            :actions="actions"
-                            cancel-text="取消"
-                            close-on-click-action
-                          />
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -219,22 +188,22 @@ export default {
   //监控data中的数据变化
   watch: {
     bannerIndex: function () {
-      console.log(this.bannerIndex);
+      // console.log(this.bannerIndex);
     },
     active: function () {
       /* console.log(this.active); */
-      console.log(
-        "当前id",
-        this.classPageAllTabs.data.home_type[this.active].id
-      );
+      // console.log(
+      //   "当前id",
+      //   this.classPageAllTabs.data.home_type[this.active].id
+      // );
       /* 获取模块方法 */
       getClassPageLayout({
         tabId: this.classPageAllTabs.data.home_type[this.active].id,
       }).then((data) => {
-        console.log("模块化数据", data);
-        console.log("轮播图id", data.data.layout[0].id);
+        //console.log("模块化数据", data);
+        //console.log("轮播图id", data.data.layout[0].id);
         getClassPageHomeBanner({ id: data.data.layout[0].id }).then((data) => {
-          console.log("模块化轮播图数据", data.data);
+          // console.log("模块化轮播图数据", data.data);
         });
       });
     },
@@ -245,7 +214,7 @@ export default {
     getBannerFun() {
       getBanner().then((data) => {
         this.banner = data.data;
-        console.log(this.banner);
+        // console.log(this.banner);
         this.bannerLength = this.banner.length;
       });
     },
@@ -256,7 +225,7 @@ export default {
         data: { tab_type: [0, 6, 9, 12] },
       }).then((data) => {
         this.classPageAllTabs = data;
-        console.log("分类列表", this.classPageAllTabs);
+        // console.log("分类列表", this.classPageAllTabs);
         this.getClassPageSixComicsFun();
       });
     },
@@ -264,12 +233,8 @@ export default {
     getHomeRecommendFun() {
       getHomeRecommend().then((data) => {
         this.bannerText = data.data.list;
-        console.log(this.bannerText);
+        // console.log(this.bannerText);
       });
-    },
-    /* 获取分类方法 */
-    getTabDetailFun() {
-      console.log("asdasdasd");
     },
     /* 获取漫画列表方法 */
     getClassPageSixComicsFun() {
@@ -290,17 +255,17 @@ export default {
         pageNum: this.pageNums,
       }).then((data) => {
         this.recommendComicList = data.data.feeds;
-        console.log(
-          "homeFeed漫画列表",
-          this.recommendComicList,
-          "当前分页",
-          this.pageNums
-        );
+        // console.log(
+        //   "homeFeed漫画列表",
+        //   this.recommendComicList,
+        //   "当前分页",
+        //   this.pageNums
+        // );
       });
     },
     /* 下拉刷新加载 */
     onLoad() {
-      console.log("触底了");
+      // console.log("触底了");
       this.pageNums += 1;
       // 异步更新数据
       // setTimeout 仅做示例，真实场景中一般为 ajax 请求
@@ -308,18 +273,22 @@ export default {
         getHomeFeed({
           pageNum: this.pageNums,
         }).then((data) => {
-          console.log("加载中");
+          // console.log("加载中");
           for (let i = 0; i < data.data.feeds.length - 1; i++) {
             this.recommendComicList.push(data.data.feeds[i]);
           }
-          console.log(
-            "加载后漫画列表",
-            this.recommendComicList,
-            "当前分页",
-            this.pageNums
-          );
+          /* if(this.recommendComicList.length % 2 !=0){
+            this.recommendComicList.push()
+          } */
+          // console.log(
+          //   "加载后漫画列表",
+          //   this.recommendComicList,
+          //   "是否能被2整除" + this.recommendComicList.length % 2==0 ? "能" : "不能",
+          //   "当前分页",
+          //   this.pageNums
+          // );
           this.loading = false;
-          console.log("加载完毕");
+          //console.log("加载完毕");
         });
         // 加载状态结束
 
@@ -332,13 +301,14 @@ export default {
     },
     /* 选择该漫画方法 */
     async chooseThisComic(id) {
+    Toast("漫画加载中...")
       let index = "";
       let ep_list = "";
-      console.log("当前选择漫画Id为", id);
+      //console.log("当前选择漫画Id为", id);
       await getComicDetail({ comicId: id }).then((data) => {
         index = 0;
         ep_list = data.data.ep_list.reverse();
-        console.log(index, ep_list);
+        //console.log(index, ep_list);
       });
       this.$router.push({
         name: "comicview",
